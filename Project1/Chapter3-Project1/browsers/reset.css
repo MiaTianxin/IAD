@@ -1,0 +1,31 @@
+	/*body{
+		background-image: url(../images/background.png);
+	}
+
+	p{
+		font-size: 20px;
+	}*/
+
+	#Description img{
+		height: 400px;
+		width: 600px;
+	}
+
+	#Share img{
+		margin: 5px;
+		height: 20px;
+		width: 20px;
+	}
+
+	#RelatedPhotos img{
+		width: 245px;
+		height: 160px;
+	}
+
+	/*a{
+		text-decoration: none;
+	}*/
+
+	a:hover{
+		font-size: 105%;
+	}

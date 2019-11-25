@@ -1,0 +1,21 @@
+img{
+	height: 20px;
+	width: 20px;
+}
+
+.Map{
+	height: 200px;
+	width: 300px;
+}
+
+p span{
+	font-style: italic;
+}
+
+footer{
+	font-style: italic;
+}
+
+a:hover{
+	font-size: 105%;
+}

@@ -1,0 +1,135 @@
+body {
+	background-color: rgba(248,223,114,0.1);
+}
+
+a {
+	font-weight: bold;
+}
+
+a:link{
+	color: rgb(101,168,207);
+}
+
+a:visited{
+	color: rgb(162,112,163);
+}
+
+.navigation1 {
+	background-color: rgb(55,55,64);
+	height: 25px;
+	text-align: right;
+	padding-right: 85px;
+	margin: 0px;
+}
+
+.navigation1 a{
+	padding-left: 10px;
+	vertical-align: middle;
+}
+
+h1{
+	color: white;
+	font-size: 40px;
+	padding-left: 95px;
+	padding-top: 5px;
+	margin: 0px;
+	height: 50px;
+	background:repeating-linear-gradient(-45deg,rgb(42,46,61),rgb(42,46,61) 4px,rgb(37,38,51) 0,rgb(37,38,51) 10px);
+}
+
+.navigation2 {
+	background-color: rgb(225,225,230);
+	height: 25px;
+	padding-left: 80px;
+	margin: 0px;
+}
+
+.navigation2 a{
+	padding-right: 10px;
+	padding-top: 5px;
+}
+
+#Portrait {
+	text-align: center;
+}
+
+#Portrait img {
+	margin-top: 30px;
+	height: 100px;
+	width: 100px;
+	border: 1px solid rgb(155,146,140);
+	padding: 10px;
+}
+
+#Portrait p {
+	margin-top: 0px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#PersonalDetails,#Contact,#SalesActivity {
+	border: 2px solid rgb(26,25,21);
+	margin: 0px 80px;
+	padding-left: 10px
+}
+
+h3 {
+	background:repeating-linear-gradient(-45deg,rgb(42,46,61),rgb(42,46,61) 4px,rgb(37,38,51) 0,rgb(37,38,51) 10px);
+	color: white;
+	padding:10px 12px;
+	margin: 0px 80px;
+	height: 25px;
+}
+
+p span {
+	color: rgb(131,125,118);
+}
+
+button img{
+	height: 10px;
+	width: 10px;
+}
+
+.button {
+	background-color: rgb(55,55,64);
+	margin: 0px 80px 20px 80px;
+	border: 2px solid rgb(26,25,21);
+	height: 25px;
+}
+
+button {
+	margin-left: 15px;
+	margin-top: 2px;
+	border-radius: 3px;
+}
+
+a[href^="mailto"] {
+	background: url(../images/E-mail.png) no-repeat 0 3px;
+	padding-left: 1.5em;
+}
+
+a[href^="tel"] {
+	background: url(../images/Bell.png) no-repeat 0 3px;
+	padding-left: 1.5em;
+}
+
+#SalesActivity img {
+	margin: 15px 0px;
+	height: 420px;
+	width: 1050px;
+}
+
+#End {
+	margin: 10px 80px 30px 80px;
+	padding-left: 10px;
+	height: 45px;
+	background-color: rgb(55,55,64);
+	color: white;
+	padding-top: 10px;
+}
+
+footer {
+	font-family: "黑体";
+	font-size: 13px;
+	letter-spacing: 0px;
+}

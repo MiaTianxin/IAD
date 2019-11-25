@@ -1,0 +1,104 @@
+body {
+	background-color: #326569;
+}
+
+#Project {
+	position:absolute;
+    top:0;
+    right:65%;
+    bottom:0;
+    left:0;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    line-height: 2em;
+}
+
+#Project ul {
+	position: relative;
+	top: 28%;
+	left: 40%;
+	list-style: none;
+	color: #ABDED7;
+	font-family: "AR DELANEY","华文琥珀";
+	font-size: 18px;
+}
+
+#Project li {
+	position: relative;
+	left: 15%;
+}
+
+#Portrait {
+	position:absolute;
+    top:0;
+    right:35%;
+    bottom:0;
+    left:35%;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#AboutMe {
+	position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:65%;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    line-height: 2em;
+}
+
+#AboutMe ul {
+	position: relative;
+	top: 28%;
+	right: 2%;
+	list-style: none;
+	color: #ABDED7;
+	font-family: "AR DELANEY","华文琥珀";
+	font-size: 18px;
+}
+
+img {
+	height: 50%;
+	width: 50%;
+	border-radius: 50%;
+	z-index: 1;
+}
+
+p {
+	position: relative;
+	left: 25%;
+	top:28%;
+}
+
+.Project {
+	color: pink;
+}
+
+.AboutMe {
+	color: pink;
+	position: relative;
+	right: 53%;
+}
+
+a:link {
+	color: #96D7C6;
+}
+
+a:hover {
+	font-size: 105%;
+	color: #ABDED7;
+}
+
+a:visited {
+	color: #E2D36B;
+}
+
+
+a {
+	text-decoration-line: none;
+}
