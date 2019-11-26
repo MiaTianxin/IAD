@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Project2 Map</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MySrbnLrjtL2qQU7z1z1kT1D5GbNQZwM"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue" type="text/javascript"></script>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+
+<style type="text/css">
+    html,body{
+        margin:0;
+        padding:0;
+        background-color: #326569;
+    }
+
+    .iw_poi_title{
+        color:#CC5522;
+        font-size:14px;
+        font-weight:bold;
+        overflow:hidden;
+        padding-right:13px;
+        white-space:nowrap;
+    }
+
+    .iw_poi_content {
+        font:12px arial,sans-serif;
+        overflow:visible;
+        padding-top:4px;
+        white-space:-moz-pre-wrap;
+        word-wrap:break-word;
+    }
+
+    #dituContent{
+        left:260px;
+        top: 0%;
+        bottom: 0%;
+        right: 0%;
+        position: absolute;
+        border:#0F474A solid 5px;
+    }
+
+    #cityName {
+        width:100px; 
+        text-align: center;
+    }
+
+    #r-result{
+        margin-left: 2%;
+        color: rgba(171,222,215,0.6);
+        font-weight: bold;
+    }
+
+    #Weather{
+        margin-top: 20px;
+        margin-left: 1%;
+        margin-right: 2%;
+        color: #96D7C6;
+        font-weight: bold;
+    }
+
+    #Now{
+        margin-right: 30px;
+    }
+
+    #NExist {
+        margin-left: 5%;
+        margin-top: 5%;
+        font-family: "AR DELANEY","华文琥珀";
+        font-size: 22px;
+    }
+
+    h1 {
+        margin-left: 2%;
+        font-family: "AR DELANEY","华文琥珀";
+        color: #96D7C6;
+    }
+
+    button {
+        margin-left: 15px;
+        border-radius: 3px;
+        background-color: rgba(171,222,215,0.6);
+        border-color: #0F474A;
+        color: #0F474A;
+        font-weight: bold;
+    }
+
+    span {
+        color: rgba(171,222,215,0.6);
+        font-weight: bold;
+    }
+
+    img {
+        background-color: #96D7C6;
+        margin-left: 5%;
+    }
+</style>
+
+<body>
+  <!--百度地图容器-->
+    <h1>Check<br> your<br> weather :)</h1>
+    <div id="dituContent"></div>
+    <div id="r-result">
+		City: <input id="cityName" type="text"/>
+        <button onclick="theLocation()">Check</button>
+    </div>
+    <nav id="Weather">
+        <button id="Now" v-on:click="getWeather('https://free-api.heweather.net/s6/weather/now',1)">Today</button>
+        <button id="Forecast" v-on:click="getWeather('https://free-api.heweather.net/s6/weather/forecast',2)">Forecast</button>
+        <p v-if="type === 'Now'">
+            <span>Local Time: </span>{{ loc }} <br>
+            <span>UTC Time: </span>{{ utc }} <br>
+            <span>Weather: </span>{{ cond_txt }} <br>
+            <span>Sensible temperature: </span> {{ fl }}℃<br>
+            <span>Temperature: </span> {{ tmp }}℃<br>
+            <span>Visibility: </span> {{ vis }} Km<br>
+            <span>Humidity: </span> {{ hum }}%<br>
+            <span>Wind Direction: </span> {{ wind_dir }}<br>
+            <span>Wind Speed: </span> {{ wind_sc }}<br><br><br>
+            <img v-show="code =='100'" src="100.png" />
+            <img v-show="code =='101'" src="101.png" />
+            <img v-show="code =='102'" src="102.png" />
+            <img v-show="code =='104'" src="104.png" />
+            <img v-show="code =='300'" src="300.png" />
+            <img v-show="code =='302'" src="302.png" />
+            <img v-show="code =='304'" src="304.png" />
+            <img v-show="code =='305'" src="305.png" />
+            <img v-show="code =='306'" src="306.png" />
+            <img v-show="code =='307'" src="307.png" />
+            <img v-show="code =='310'" src="310.png" />
+            <img v-show="code =='314'" src="314.png" />
+            <img v-show="code =='315'" src="315.png" />
+            <img v-show="code =='316'" src="316.png" />
+            <img v-show="code =='317'" src="317.png" />
+            <img v-show="code =='399'" src="399.png" />
+            <img v-show="code =='400'" src="400.png" />
+            <img v-show="code =='401'" src="401.png" />
+            <img v-show="code =='402'" src="402.png" />
+            <img v-show="code =='404'" src="404.png" />
+            <img v-show="code =='499'" src="499.png" />
+            <img v-show="code =='501'" src="501.png" />
+
+        </p>
+        <p v-else-if="type === 'Forecast'">
+            <span>Date: </span> {{ date_1 }}<br> 
+            <span>Weather: </span> {{ cond_txt_d_1 }}<br>
+            <span>Maximum Temperature: </span> {{ tmp_max_1 }}℃<br>
+            <span>Minimum Temperature: </span> {{ tmp_min_1 }}℃<br>
+            <span>Visibility: </span> {{ f_vis_1 }} Km<br>
+            <span>Humidity: </span> {{ f_hum_1 }}%<br>
+            <span>Wind Direction: </span> {{ f_wind_dir_1 }}<br>
+            <span>Wind Speed: </span> {{ f_wind_sc_1 }}<br><br>
+            <span>Date: </span> {{ date_2 }}<br> 
+            <span>Weather: </span> {{ cond_txt_d_2 }}<br>
+            <span>Maximum Temperature: </span> {{ tmp_max_2 }}℃<br>
+            <span>Minimum Temperature: </span> {{ tmp_min_2 }}℃<br>
+            <span>Visibility: </span> {{ f_vis_2 }} Km<br>
+            <span>Humidity: </span> {{ f_hum_2 }}%<br>
+            <span>Wind Direction: </span> {{ f_wind_dir_2 }}<br>
+            <span>Wind Speed: </span> {{ f_wind_sc_2 }}<br><br><br>
+            
+        </p>
+        <p v-else-if="type === 'NotExist'" id="NExist">
+            &nbsp&nbsp&nbspPLEASE<br>&nbsp&nbsp&nbsp&nbspENTER<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspA<br>&nbspCORRECT<br>CITYNAME!
+        </p>
+    </nav>
+</body>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+    }
+    
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(116.395645,39.929986);//定义一个中心点坐标
+        map.centerAndZoom(point,12);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+	map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+	map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+	var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+	map.addControl(ctrl_sca);
+    }
+    
+    initMap();//创建和初始化地图
+
+    var loc = '';
+
+    function theLocation(){
+		var city = document.getElementById("cityName").value;
+		if(city != ""){
+            loc = city;
+			map.centerAndZoom(city,11);// 用城市名设置地图中心点
+			var bdary = new BMap.Boundary();
+			bdary.get(city, function(rs){       //获取行政区域
+				map.clearOverlays();        //清除地图覆盖物       
+				var count = rs.boundaries.length; //行政区域的点有多少个
+				if (count === 0) {
+					alert('未能获取当前输入行政区域');
+                    weather.getWeather('https://free-api.heweather.net/s6/weather/now',0);
+					return ;
+				}
+          		var pointArray = [];
+				for (var i = 0; i < count; i++) {
+					var ply = new BMap.Polygon(rs.boundaries[i], {strokeWeight: 2, strokeColor: "#ff0000"}); //建立多边形覆盖物
+					ply.setFillColor("");
+					map.addOverlay(ply);  //添加覆盖物
+					pointArray = pointArray.concat(ply.getPath());
+				}    
+			map.setViewport(pointArray);    //调整视野
+            weather.getWeather('https://free-api.heweather.net/s6/weather/now',1);
+			}); 
+		}
+	}
+
+    var weather = new Vue({
+        el: '#Weather',
+        data: {
+            type : "",
+            loc : "",
+            utc : "",
+            cond_txt: "",
+            code: "",
+            fl: "",
+            tmp: "",
+            vis: "",
+            hum: "",
+            wind_dir: "",
+            wind_sc: "",
+            date_1: "",
+            cond_txt_d_1: "",
+            tmp_max_1: "",
+            tmp_min_1: "",
+            f_vis_1: "",
+            f_hum_1: "",
+            f_wind_dir_1: "",
+            f_wind_sc_1: "",
+            date_2: "",
+            cond_txt_d_2: "",
+            tmp_max_2: "",
+            tmp_min_2: "",
+            f_vis_2: "",
+            f_hum_2: "",
+            f_wind_dir_2: "",
+            f_wind_sc_2: "",
+        },
+        methods: {
+            getWeather: function(item,type_s){
+                axios.get(item,{
+                    params: { location: loc,
+                             key:'8cded883d634451dbcc277a6bafc38f5',
+                             lang:'en',
+                            }
+                })
+                .then(function (response) {
+                    console.log(response);
+                     weather.showWeather(response.data.HeWeather6[0],type_s);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            },
+
+            showWeather: function(data,type_s){
+                if(type_s == 1){
+                    this.type ='Now';
+                    this.loc = data.update.loc;
+                    this.utc = data.update.utc;
+                    this.cond_txt = data.now.cond_txt;
+                    this.code = data.now.cond_code;
+                    this.fl = data.now.fl;
+                    this.tmp = data.now.tmp;
+                    this.vis = data.now.vis;
+                    this.hum = data.now.hum;
+                    this.wind_dir = data.now.wind_dir;
+                    this.wind_sc = data.now.wind_sc;
+                }
+                else if(type_s == 2){
+                    this.type='Forecast';
+                    this.date_1 = data.daily_forecast[1].date;
+                    this.cond_txt_d_1 = data.daily_forecast[1].cond_txt_d;
+                    this.tmp_max_1 = data.daily_forecast[1].tmp_max;
+                    this.tmp_min_1 = data.daily_forecast[1].tmp_min;
+                    this.f_vis_1 = data.daily_forecast[1].vis;
+                    this.f_hum_1 = data.daily_forecast[1].hum;
+                    this.f_wind_dir_1 = data.daily_forecast[1].wind_dir;
+                    this.f_wind_sc_1 = data.daily_forecast[1].wind_sc;
+                    this.date_2 = data.daily_forecast[2].date;
+                    this.cond_txt_d_2 = data.daily_forecast[2].cond_txt_d;
+                    this.tmp_max_2 = data.daily_forecast[2].tmp_max;
+                    this.tmp_min_2 = data.daily_forecast[2].tmp_min;
+                    this.f_vis_2 = data.daily_forecast[2].vis;
+                    this.f_hum_2 = data.daily_forecast[2].hum;
+                    this.f_wind_dir_2 = data.daily_forecast[2].wind_dir;
+                    this.f_wind_sc_2 = data.daily_forecast[2].wind_sc;
+                }
+                else {
+                    this.type = 'NotExist';
+                }
+            }
+        }
+    });
+</script>
+</html>
